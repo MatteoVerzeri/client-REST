@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $cognome=$data["cognome"];
     $datanascita=$data["data_di_nascita"];
     $datamorte=$data["data_di_morte"];
-    $sql = " INSERT INTO valvole (nome, cognome, data_di_nascita, data_di_morte) VALUES ('$nome','$cognome','$datanascita','$datamorte',)";
+    $sql = " INSERT INTO attori (nome, cognome, data_di_nascita, data_di_morte) VALUES ('$nome','$cognome','$datanascita','$datamorte',)";
     $result = $conn->query($sql);
     http_response_code(200); 
 }
