@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
             }
             echo json_encode($rows);
         } else {
-            echo "Nessun risultato trovato nella tabella.";
+            http_response_code(404);
         }
     }
 }
@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             }
             echo json_encode($rows);
         } else {
-            echo "Nessun risultato trovato nella tabella.";
+            http_response_code(404);
         }
     }
 }
