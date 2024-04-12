@@ -24,21 +24,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $cognome=$data["cognome"];
     $datanascita=$data["data_di_nascita"];
     $datamorte=$data["data_di_morte"];
-    $sql = " INSERT INTO attori (nome, cognome, data_di_nascita, data_di_morte) VALUES ('$nome','$cognome','$datanascita','$datamorte',)";
+    if($datamorte=="")
+        $sql = " INSERT INTO attori (nome, cognome, data_di_nascita, data_di_morte) VALUES ('$nome','$cognome','$datanascita',NULL)";
+    else
+        $sql = " INSERT INTO attori (nome, cognome, data_di_nascita, data_di_morte) VALUES ('$nome','$cognome','$datanascita','$datamorte')";
     $result = $conn->query($sql);
     http_response_code(200); 
 }
 if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
-    header("Content-Type:application/json");   
+    header("Content-Type:application/json");
+    $url=$_SERVER['REQUEST_URI'];
+    $id=explode("/",$url)[3];
     $body=file_get_contents('php://input');
     $data = json_decode($body,true);
-    $IdMod=$data["IdMod"];
-    $campo=$data["Campo"];
-    $Agg=$data["Aggiornato"];
+    $nome=$data["nome"];
+    $cognome=$data["cognome"];
+    $datanascita=$data["data_di_nascita"];
+    $datamorte=$data["data_di_morte"];
     try{
-    $sql = "UPDATE attori SET $campo= '$Agg' WHERE id = '$IdMod'" ;
+    if($datamorte=="")
+        $sql = "UPDATE attori SET nome= '$nome',cognome='$cognome',data_di_nascita='$datanascita',data_di_morte=NULL  WHERE id = '$id'" ;
+    else
+        $sql = "UPDATE attori SET nome= '$nome',cognome='$cognome',data_di_nascita='$datanascita',data_di_morte='$datamorte'  WHERE id = '$id'" ;
     $result = $conn->query($sql);
-    http_response_code(200);
+    echo  http_response_code(200);
     }
     catch(Exception $ecc){
         http_response_code(405);
